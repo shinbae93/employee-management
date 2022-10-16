@@ -1,0 +1,49 @@
+@model List<Department>
+@{
+    ViewData["Title"] = "Update Employee";
+    var departments = Model;
+    var employee = ViewBag.Employee;
+}
+<div class="container">
+    <div class="row ">
+        <h1 class="text-center text-info">Update Employee</h1>
+    </div>
+    <form asp-controller="Employee" asp-action="Update">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input value="@employee.Id" id="id" value="@employee.Id" name="Id" hidden />
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input class="form-control" id="Name" value="@employee.Name" name="Name">
+        </div>
+        <div class="mb-3">
+            <label for="Gender" class="form-label">Gender</label>
+            <input type="radio" value="true" id="Gender" name="Gender" checked=@employee.Gender />Male
+            <input type="radio" value="false" id="Gender" name="Gender" checked=@(!employee.Gender) />Female
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input class="form-control" id="Email" value="@employee.Email" name="Email">
+        </div>
+        <div class="mb-3">
+            <label for="PhoneNumber" class="form-label">Phone Number</label>
+            <input class="form-control" id="PhoneNumber" value="@employee.PhoneNumber" name="PhoneNumber">
+        </div>
+         <div class="mb-3">
+            <label for="DepartmentId">Department</label>
+            <select class="form-control" id="DepartmentId" name="DepartmentId">
+                @foreach (var item in departments){
+                    <option value="@item.Id" selected=@(item.Id == @employee.DepartmentId)>@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="text-center ">
+            <div class="w-25 btn-group">
+                <input class="btn btn-success mx-2" type="submit" name="submit" value="Save" />
+                <a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mx-2">
+                    <i class="fas fa-edit">Back</i>
+                </a>
+            </div>
+        </div>
+    </form>
+    
+</div>
